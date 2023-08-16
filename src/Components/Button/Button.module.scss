@@ -1,0 +1,23 @@
+@import "src/styles/variables";
+
+.button {
+  min-width: 132px;
+  min-height: 36px;
+
+  border: none;
+  border-radius: 8px;
+  padding: 6px;
+
+  text-align: center;
+  font-style: normal;
+  line-height: normal;
+  font-weight: 600;
+
+  background: $whiteBasicColor;
+  color: $blueDarkColor;
+
+  &:hover {
+    cursor: pointer;
+    background: $blueLightColor;
+  }
+}

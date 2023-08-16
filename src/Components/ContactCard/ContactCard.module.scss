@@ -1,0 +1,34 @@
+@import "src/styles/variables";
+
+.contact-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  background: $whiteBasicColor;
+
+  gap: 16px;
+
+  padding: 8px 12px;
+
+  &:hover {
+    background: $blueLightColor;
+    .contact-card__edit-button {
+      visibility: visible;
+    }
+  }
+}
+
+.contact-card__avatar {
+  width: 52px;
+  height: 52px;
+
+  border-radius: 50%;
+
+  background: $grayBasicColor;
+}
+
+.contact-card__edit-button {
+  margin-right: 34px;
+  visibility: hidden;
+}
