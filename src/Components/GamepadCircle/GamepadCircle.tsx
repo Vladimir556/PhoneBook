@@ -11,6 +11,14 @@ import dbExport from '/src/assets/database-export.svg';
 import dbImport from '/src/assets/database-import.svg';
 import GamepadCircleCell from "./GamepadCircleCell/GamepadCircleCell";
 
+type RotateDirection = 'UP' | 'RIGHT' | 'DOWN' | 'LEFT'
+const initialDirections: Record<RotateDirection, number> = {
+  DOWN: 0,
+  LEFT: 90,
+  UP: 180,
+  RIGHT: 270,
+}
+
 interface IGamepadCircleProps extends IModal {
 
 }
@@ -21,6 +29,7 @@ const GamepadCircle: FC<IGamepadCircleProps> = ({
   }) => {
 
   const intersectRef = useRef<SVGSVGElement | null>(null);
+  const intersectDirectionRef = useRef<number | null>(null);
 
   const rootClasses = [
     styles['modal']
@@ -31,11 +40,11 @@ const GamepadCircle: FC<IGamepadCircleProps> = ({
   const handleAddContact = () => {};
   const handleEditContacts = () => {};
 
-  const handleHoverGamepadCell = (rotateAngle: number) => {
+  const handleHoverGamepadCell = (rotateDirection: RotateDirection) => {
     if (intersectRef.current) {
-      intersectRef.current!.style.rotate = `${rotateAngle}deg`
+      intersectRef.current!.style.rotate = `${initialDirections[rotateDirection]}deg`
       if (intersectRef.current!.style.visibility === 'hidden') {
-        console.log('hui')
+        console.log('visible')
         intersectRef.current!.style.visibility = 'visible'
       }
     }
@@ -43,7 +52,6 @@ const GamepadCircle: FC<IGamepadCircleProps> = ({
 
   const handleVisabilityGamepadCell = () => {
     if (intersectRef.current) {
-      console.log('hui 2')
       intersectRef.current!.style.visibility = 'hidden'
     }
   }
@@ -72,31 +80,33 @@ const GamepadCircle: FC<IGamepadCircleProps> = ({
               </svg>
 
               <GamepadCircleCell
-                onMouseEnter={() => handleHoverGamepadCell(180)}
+                onMouseEnter={() => handleHoverGamepadCell("UP")}
+                // 180
                 onMouseLeave={handleVisabilityGamepadCell}
               >
                 <span>Добавить<br/>пользователя</span>
               </GamepadCircleCell>
 
               <GamepadCircleCell
-                onMouseEnter={() => handleHoverGamepadCell(270)}
+                onMouseEnter={() => handleHoverGamepadCell("RIGHT")}
+                // 270
                 onMouseLeave={handleVisabilityGamepadCell}
-
               >
                 <span>Экспортировать<br/>контакты</span>
               </GamepadCircleCell>
 
               <GamepadCircleCell
-                onMouseEnter={() => handleHoverGamepadCell(90)}
+                onMouseEnter={() => handleHoverGamepadCell("LEFT")}
+                // 90
                 onMouseLeave={handleVisabilityGamepadCell}
-
               >
                 <span>Импортировать<br/>контакты</span>
               </GamepadCircleCell>
 
               <GamepadCircleCell
-                onMouseEnter={() => handleHoverGamepadCell(360)}
-                onMouseOut={handleVisabilityGamepadCell}
+                onMouseEnter={() => handleHoverGamepadCell("DOWN")}
+                // 360
+                onMouseLeave={handleVisabilityGamepadCell}
 
               >
                 <span>Редактировать<br/>список</span>
