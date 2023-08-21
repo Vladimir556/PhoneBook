@@ -1,14 +1,14 @@
-import {FC, ReactNode} from "react";
+import {FC, ReactNode, HTMLAttributes} from "react";
 import styles from './Button.module.scss';
 
-interface IButtonProps {
+interface IButtonProps extends HTMLAttributes<HTMLButtonElement>{
   children: ReactNode[],
-  className?: string,
 }
 
 const Button: FC<IButtonProps> = ({
   children,
-  className
+  className,
+  ...props
   }) => {
 
   const rootClasses = [
@@ -17,7 +17,10 @@ const Button: FC<IButtonProps> = ({
   ]
 
   return (
-    <button className={rootClasses.join(' ')}>
+    <button
+      {...props}
+      className={rootClasses.join(' ')}
+    >
       {children}
     </button>
   );

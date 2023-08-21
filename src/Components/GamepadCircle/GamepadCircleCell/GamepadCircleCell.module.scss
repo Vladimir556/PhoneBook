@@ -1,0 +1,24 @@
+
+.circle-cell {
+  height: 100%;
+  display: flex;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &:hover .circle-cell__content {
+    color: white;
+  }
+
+  &__content {
+    rotate: -45deg;
+    display: flex;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+}

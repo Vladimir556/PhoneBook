@@ -1,0 +1,65 @@
+@import "src/styles/variables";
+
+.modal-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  height: 100%;
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.gamepad-circle {
+  position: relative;
+  width: 436px;
+  height: 436px;
+  //border-radius: 50%;
+  background: red;
+  rotate: 45deg;
+
+  &__grid {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+
+    height: 100%;
+    width: 100%;
+  }
+
+  .outer-circle {
+    position: absolute;
+    border-radius: 50%;
+    fill: none;
+    stroke: $whiteBasicColor;
+    stroke-width: 315px;
+    stroke-dashoffset: 1027;
+  }
+
+  .intersect {
+    position: absolute;
+    border-radius: 50%;
+    fill: none;
+    stroke: $blueDarkColor;
+    stroke-width: 315px;
+    stroke-dasharray: 1370;
+    stroke-dashoffset: 1027;
+    rotate: 180deg;
+  }
+
+  &__grid-cell:hover .circle {
+    background: red;
+  }
+}
+
+

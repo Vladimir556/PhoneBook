@@ -1,6 +1,15 @@
 import {IModal} from "../../utills/interfaceses";
-import {FC} from "react";
+import {FC, MouseEvent, useEffect, useRef} from "react";
 import {createPortal} from "react-dom";
+import styles from './GamepadCircle.module.scss';
+
+import {CSSProperties} from 'react'
+
+import bublic from '/src/assets/bublik.svg';
+import account from '/src/assets/account-plus.svg';
+import dbExport from '/src/assets/database-export.svg';
+import dbImport from '/src/assets/database-import.svg';
+import GamepadCircleCell from "./GamepadCircleCell/GamepadCircleCell";
 
 interface IGamepadCircleProps extends IModal {
 
@@ -8,19 +17,94 @@ interface IGamepadCircleProps extends IModal {
 
 const GamepadCircle: FC<IGamepadCircleProps> = ({
   isOpen,
-  toggleModal
+  toggleModal,
   }) => {
 
-  const handleImportData = () => {}
-  const handleExportData = () => {}
-  const handleAddContact = () => {}
-  const handleEditContacts = () => {}
+  const intersectRef = useRef<SVGSVGElement | null>(null);
 
+  const rootClasses = [
+    styles['modal']
+  ];
+
+  const handleImportData = () => {};
+  const handleExportData = () => {};
+  const handleAddContact = () => {};
+  const handleEditContacts = () => {};
+
+  const handleHoverGamepadCell = (rotateAngle: number) => {
+    if (intersectRef.current) {
+      intersectRef.current!.style.rotate = `${rotateAngle}deg`
+      if (intersectRef.current!.style.visibility === 'hidden') {
+        console.log('hui')
+        intersectRef.current!.style.visibility = 'visible'
+      }
+    }
+  }
+
+  const handleVisabilityGamepadCell = () => {
+    if (intersectRef.current) {
+      console.log('hui 2')
+      intersectRef.current!.style.visibility = 'hidden'
+    }
+  }
 
   return (
     <>
       {isOpen && createPortal(
-        <div>это модалка геймпад</div>,
+        <div
+          className={styles['modal-background']}
+          onClick={toggleModal}
+        >
+          <div
+            className={styles['gamepad-circle']}
+            onClick={(event) => {
+              event.stopPropagation()
+            }}
+          >
+
+            <div className={styles['gamepad-circle__grid']}
+            >
+              <svg className={styles['outer-circle']} width="436" height="436" viewBox="0 0 436 436" xmlns="http://www.w3.org/2000/svg">
+                <circle r="218" cx="50%" cy="50%"/>
+              </svg>
+              <svg style={{visibility: 'hidden'}} ref={intersectRef} className={styles['intersect']} width="436" height="436" viewBox="0 0 436 436" xmlns="http://www.w3.org/2000/svg">
+                <circle r="218" cx="50%" cy="50%"/>
+              </svg>
+
+              <GamepadCircleCell
+                onMouseEnter={() => handleHoverGamepadCell(180)}
+                onMouseLeave={handleVisabilityGamepadCell}
+              >
+                <span>Добавить<br/>пользователя</span>
+              </GamepadCircleCell>
+
+              <GamepadCircleCell
+                onMouseEnter={() => handleHoverGamepadCell(270)}
+                onMouseLeave={handleVisabilityGamepadCell}
+
+              >
+                <span>Экспортировать<br/>контакты</span>
+              </GamepadCircleCell>
+
+              <GamepadCircleCell
+                onMouseEnter={() => handleHoverGamepadCell(90)}
+                onMouseLeave={handleVisabilityGamepadCell}
+
+              >
+                <span>Импортировать<br/>контакты</span>
+              </GamepadCircleCell>
+
+              <GamepadCircleCell
+                onMouseEnter={() => handleHoverGamepadCell(360)}
+                onMouseOut={handleVisabilityGamepadCell}
+
+              >
+                <span>Редактировать<br/>список</span>
+              </GamepadCircleCell>
+
+            </div>
+          </div>
+        </div>,
         document.body
       )}
     </>

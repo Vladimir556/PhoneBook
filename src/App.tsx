@@ -1,5 +1,5 @@
 import {useState} from "react";
-import {ContactCard, Header} from "./Components";
+import {ContactCard, GamepadCircle, Header} from "./Components";
 import useModal from "./hooks/useModal";
 
 
